@@ -48,14 +48,13 @@ def load_data(path: Path | None) -> pd.DataFrame:
     target = "Class"
     if target not in df:
         raise ValueError("Veri setinde Class hedef sütunu bulunmalıdır.")
-    if set(FEATURES).issubset(df.columns):
-        return df[FEATURES + [target]].dropna()
-    numeric = [c for c in df.select_dtypes(include="number").columns if c != target]
-    if len(numeric) < 3:
+    available = FEATURES if set(FEATURES).issubset(df.columns) else [
+        column for column in df.select_dtypes(include="number").columns
+        if column != target
+    ]
+    if len(available) < 3:
         raise ValueError("Yeterli sayısal özellik yok.")
-    global FEATURES
-    FEATURES = numeric
-    return df[numeric + [target]].dropna()
+    return df[available + [target]].dropna()
 
 def choose_threshold(y_true, score) -> tuple[float, float]:
     precision, recall, thresholds = precision_recall_curve(y_true, score)
@@ -96,7 +95,8 @@ def save_diagnostics(y_test, result, output: Path) -> None:
 
 def run(input_path: Path | None, output: Path) -> None:
     df = load_data(input_path)
-    X, y = df[FEATURES], df["Class"].astype(int)
+    feature_columns = [column for column in df.columns if column != "Class"]
+    X, y = df[feature_columns], df["Class"].astype(int)
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=.35, stratify=y, random_state=RANDOM_STATE
     )
@@ -118,7 +118,7 @@ def run(input_path: Path | None, output: Path) -> None:
     table = pd.DataFrame([{k: v for k, v in result.items() if k not in {"model", "score", "prediction"}} for result in results])
     table.to_csv(output / "model_comparison.csv", index=False)
     save_diagnostics(y_test.to_numpy(), best, output)
-    joblib.dump({"scaler": scaler, "model": best["model"], "threshold": best["threshold"], "features": FEATURES}, output / "fraud_detector.joblib")
+    joblib.dump({"scaler": scaler, "model": best["model"], "threshold": best["threshold"], "features": feature_columns}, output / "fraud_detector.joblib")
     report = classification_report(y_test, best["prediction"], output_dict=True)
     summary = {"best_model": best["name"], "metrics": table.to_dict(orient="records"), "classification_report": report}
     (output / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
