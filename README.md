@@ -6,7 +6,7 @@
 
 Softito Yapay Zekâ Yazılımcılığı eğitimi boyunca işlenen konuların, birbirinden farklı veri setleri ve gerçek iş problemleri üzerinde uygulandığı çalıştırılabilir Python projeleri.
 
-Bu repo [mucahitesaday/softito_python_ai](https://github.com/mucahitesaday/softito_python_ai) yapısını referans alır. Öğrenme sırası ve klasör yaklaşımı korunmuş; kodlar, açıklamalar, problem senaryoları ve veri setleri özgün hazırlanmıştır.
+Projeler; eğitimde işlenen konuları pekiştirmek, farklı veri setleri üzerinde uygulama deneyimi kazanmak ve uçtan uca bir yapay zekâ portföyü oluşturmak amacıyla hazırlanmıştır.
 
 ## İçerik
 
