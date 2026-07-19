@@ -1,0 +1,26 @@
+students_performance:
+  kaggle: spscientist/students-performance-in-exams
+  file: StudentsPerformance.csv
+hotel_booking:
+  kaggle: jessemostipak/hotel-booking-demand
+  file: hotel_bookings.csv
+telco_churn:
+  kaggle: blastchar/telco-customer-churn
+  file: WA_Fn-UseC_-Telco-Customer-Churn.csv
+heart_disease:
+  kaggle: johnsmith88/heart-disease-dataset
+  file: heart.csv
+mall_customers:
+  kaggle: vjchoudhary7/customer-segmentation-tutorial-in-python
+  file: Mall_Customers.csv
+credit_card_fraud:
+  kaggle: mlg-ulb/creditcardfraud
+  file: creditcard.csv
+weather_aus:
+  kaggle: jsphyg/weather-dataset-rattle-package
+  file: weatherAUS.csv
+gtsrb:
+  kaggle: meowmeowmeowmeowmeow/gtsrb-german-traffic-sign
+flight_delay:
+  kaggle: usdot/flight-delays
+  file: flights.csv
